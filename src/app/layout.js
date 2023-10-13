@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Nunito_Sans } from "next/font/google";
+import Underlay from "@/app/Underlay";
 
 const inter = Nunito_Sans({ subsets: ["latin"] });
 
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
 				<link rel="manifest" href="/manifest.json" />
 				<meta name="theme-color" content="#c29ec6" />
 			</head>
-			<body className={inter.className}>{children}</body>
+			<body className={inter.className}>
+				<Underlay>{children}</Underlay>
+			</body>
 		</html>
 	);
 }

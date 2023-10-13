@@ -1,13 +1,13 @@
 body {
-  margin: 0;
-  background: #c29ec6;
-  font-size: 18px;
+	margin: 0;
+	background: #c29ec6;
+	font-size: 18px;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 a {
-  color: #7b0046;
+	color: #7b0046;
 }
