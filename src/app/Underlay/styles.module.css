@@ -26,11 +26,15 @@
 }
 
 .box {
-	transition: 1s background-color;
-	width: 100px;
-	height: 100px;
+	transition: 1s background-color, 0.5s box-shadow;
+	width: 80px;
+	height: 80px;
 }
 
 .active {
 	background: rgba(0, 0, 0, 0.02);
+}
+
+.highlighted {
+	box-shadow: inset rgba(0, 0, 0, 0.04) 0px 0px 1px 1px;
 }

@@ -1,7 +1,12 @@
 "use client";
 
 import styles from "./styles.module.css";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
+import throttle from "lodash/throttle";
+import classnames from "classnames";
+
+const width = 80 + 10;
+const height = 80 + 10;
 
 export default function UnderlayWrapper({ children }) {
 	return (
@@ -18,8 +23,8 @@ function Underlay() {
 
 	useEffect(() => {
 		const calculate = () => {
-			const columns = Math.floor(window.innerWidth / 110) + 3;
-			const rows = Math.floor(window.innerHeight / 110) + 3;
+			const columns = Math.floor(window.innerWidth / width) + 3;
+			const rows = Math.floor(window.innerHeight / height) + 3;
 
 			setColumns(columns);
 			setRows(rows);
@@ -32,11 +37,33 @@ function Underlay() {
 		return () => window.removeEventListener("resize", calculate);
 	}, []);
 
+	useEffect(() => {
+		const handleMove = throttle((event) => {
+			const boxes = [
+				document.elementsFromPoint(event.x, event.y),
+				document.elementsFromPoint(event.x - width, event.y),
+				document.elementsFromPoint(event.x + width, event.y),
+				document.elementsFromPoint(event.x, event.y + height),
+				document.elementsFromPoint(event.x, event.y - height)
+			]
+				.flat()
+				.filter((element) => element.classList.contains(styles.box));
+
+			boxes.forEach((box) => {
+				box.dispatchEvent(new Event("highlight_box"));
+			});
+		}, 100);
+
+		window.addEventListener("mousemove", handleMove);
+
+		return () => window.removeEventListener("mousemove", handleMove);
+	}, []);
+
 	return (
 		<div className={styles.underlayWrapper}>
-			<div className={styles.underlay} style={{ "--columns": columns, width: 110 * columns }}>
+			<div className={styles.underlay} style={{ "--columns": columns, width: width * columns }}>
 				{Array.from({ length: rows }).map((_, index) => (
-					<Fragment key={index} className={styles.row}>
+					<Fragment key={index}>
 						{Array.from({ length: columns }).map((_, index) => (
 							<Box key={index} />
 						))}
@@ -53,6 +80,17 @@ function Box() {
 		return random > 0.7;
 	});
 
+	const [highlighted, setHighlighted] = useState(false);
+
+	const ref = useRef();
+
+	useLayoutEffect(() => {
+		ref.current.addEventListener("highlight_box", () => {
+			setHighlighted(true);
+			window.setTimeout(() => setHighlighted(false), 2000);
+		});
+	}, []);
+
 	useEffect(() => {
 		if (active) {
 			window.setTimeout(() => setActive(false), Math.random() * 4000);
@@ -68,5 +106,10 @@ function Box() {
 		return () => window.clearInterval(interval);
 	}, []);
 
-	return <div className={[styles.box, active ? styles.active : null].filter(Boolean).join(" ")} />;
+	const classes = classnames(styles.box, {
+		[styles.active]: active,
+		[styles.highlighted]: highlighted
+	});
+
+	return <div ref={ref} className={classes} />;
 }
