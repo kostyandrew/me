@@ -26,15 +26,25 @@
 }
 
 .box {
-	transition: 1s background-color, 0.5s box-shadow;
+	transition:
+		1s background-color,
+		0.5s box-shadow;
 	width: 80px;
 	height: 80px;
+
+	--colorBase: 0;
 }
 
 .active {
-	background: rgba(0, 0, 0, 0.02);
+	background: rgba(var(--colorBase), var(--colorBase), var(--colorBase), 0.02);
 }
 
 .highlighted {
-	box-shadow: inset rgba(0, 0, 0, 0.04) 0px 0px 1px 1px;
+	box-shadow: inset rgba(var(--colorBase), var(--colorBase), var(--colorBase), 0.04) 0px 0px 1px 1px;
+}
+
+@media (prefers-color-scheme: dark) {
+	.box {
+		--colorBase: 255;
+	}
 }

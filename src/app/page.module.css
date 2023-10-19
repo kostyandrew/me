@@ -18,7 +18,9 @@
 }
 
 .more {
-	border-left: 1px solid rgb(123, 0, 70, 0.2);
+	border-left: 1px solid;
+	border-left-color: var(--primaryColor);
+	border-left-color: color-mix(in srgb, var(--primaryColor) 35%, transparent);
 	padding: 1rem;
 }
 
