@@ -9,8 +9,13 @@
 
 body {
 	margin: 0;
-	background: #c29ec6;
+	background: #f0f0f0;
 	font-size: 18px;
+}
+
+::selection {
+	background: #c29ec6;
+	color: white;
 }
 
 a {
