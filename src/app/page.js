@@ -4,7 +4,11 @@ export default function Home() {
 	return (
 		<main className={styles.main}>
 			<div>
-				<h1 className={styles.title}>Andrii Kostetskyi</h1>
+				<h1 className={styles.title}>
+					Andrii
+					<br />
+					Kostetskyi
+				</h1>
 
 				<p className={styles.description}>Javascript Fullstack developer</p>
 			</div>

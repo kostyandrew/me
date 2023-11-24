@@ -9,8 +9,26 @@
 }
 
 .title {
-	font-size: 3.5rem;
-	font-weight: 100;
+	font-size: 5rem;
+	@media (max-width: 600px) {
+		font-size: 3.5rem;
+	}
+	font-weight: 1000;
+	background-clip: text;
+	color: transparent;
+	line-height: 1;
+	text-align: right;
+	background-size:
+		100% 2lh,
+		100% 100%;
+
+	background-image: conic-gradient(from 90deg at 50% 100%, #00d9f4 50% 50%, #ff15ff 100%);
+
+	background-image: conic-gradient(
+		from 90deg at 50% 100% in oklch,
+		oklch(74% 0.3 200) 50% 50%,
+		oklch(80% 0.4 310) 100%
+	);
 }
 
 .description {
