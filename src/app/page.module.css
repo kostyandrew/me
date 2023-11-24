@@ -18,9 +18,7 @@
 	color: transparent;
 	line-height: 1;
 	text-align: right;
-	background-size:
-		100% 2lh,
-		100% 100%;
+	background-size: 200% 2lh;
 
 	background-image: conic-gradient(from 90deg at 50% 100%, #00d9f4 50% 50%, #ff15ff 100%);
 
@@ -29,6 +27,23 @@
 		oklch(74% 0.3 200) 50% 50%,
 		oklch(80% 0.4 310) 100%
 	);
+
+	animation: rolling 10s linear infinite;
+}
+
+@keyframes rolling {
+	0% {
+		background-position: 50% 0;
+	}
+	33.33% {
+		background-position: 100% 0;
+	}
+	66.66% {
+		background-position: 0% 0;
+	}
+	100% {
+		background-position: 50% 0;
+	}
 }
 
 .description {
