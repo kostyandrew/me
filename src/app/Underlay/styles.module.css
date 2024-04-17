@@ -22,21 +22,46 @@
 
 	display: grid;
 	grid-template-columns: repeat(var(--columns, 10), 1fr);
-	gap: 10px;
+	gap: 2px;
 }
 
 .box {
 	transition:
 		1s background-color,
 		0.5s box-shadow;
-	width: 80px;
-	height: 80px;
+	width: 40px;
+	height: 40px;
 
 	--colorBase: 0;
 }
 
-.active {
+.highlight {
 	background: rgba(var(--colorBase), var(--colorBase), var(--colorBase), 0.02);
+}
+
+.active {
+	background-image: conic-gradient(
+		from 90deg at 50% 100%,
+		rgba(0, 217, 244, 0.1) 50% 50%,
+		rgba(255, 21, 255, 0.1) 100%
+	);
+	background-size: 200% 200%;
+	animation: rolling 0.1s linear infinite;
+}
+
+@keyframes rolling {
+	0% {
+		background-position: 50% 0;
+	}
+	33.33% {
+		background-position: 100% 0;
+	}
+	66.66% {
+		background-position: 0% 0;
+	}
+	100% {
+		background-position: 50% 0;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
